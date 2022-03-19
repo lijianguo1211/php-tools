@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @Notes: 单例模式
  *
@@ -20,10 +21,16 @@ class Singleton
 
     }
 
-    public function __serialize(): array
+
+    /**
+     * @throws Exception
+     */
+    public function __wakeup()
     {
-        // TODO: Implement __serialize() method.
+//        throw new \Exception("Cannot unserialize singleton");
+        return new static();
     }
+
 
     final public function __invoke(): void
     {
@@ -43,6 +50,12 @@ class Singleton
 
 $obj = Singleton::getInstance();
 $obj2 = Singleton::getInstance();
+
+$obj4 = serialize($obj);
+
+$obj4 = unserialize($obj4);
+
+var_dump($obj4 === $obj);
 
 //$obj1 = clone $obj;
 

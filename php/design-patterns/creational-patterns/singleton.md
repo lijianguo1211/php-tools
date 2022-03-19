@@ -15,7 +15,7 @@
   * `__construct` 需要设为私有的，防止外部`new`
   * `__clone` 需要设为私有的，防止外部`clone`
   * `__invoke` 需要设为`final`,并返回空，防止在类内部直接实例化类，外部把示例当方法调用，或者攻击者改写
-  * `__serialize` 需要设为`final`,并返回空，防止在序列化时被改写
+  * `____wakeup` 需要设为`final`,并返回异常，防止在反序列化时被改写
 
 * 具体代码实现
 
@@ -33,10 +33,16 @@ class Singleton
 
     }
 
-    public function __serialize(): array
+
+    /**
+     * @throws Exception
+     */
+    public function __wakeup()
     {
-        // TODO: Implement __serialize() method.
+//        throw new \Exception("Cannot unserialize singleton");
+        return new static();
     }
+
 
     final public function __invoke(): void
     {
@@ -56,6 +62,12 @@ class Singleton
 
 $obj = Singleton::getInstance();
 $obj2 = Singleton::getInstance();
+
+$obj4 = serialize($obj);
+
+$obj4 = unserialize($obj4);
+
+var_dump($obj4 === $obj);
 
 //$obj1 = clone $obj;
 
