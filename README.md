@@ -15,7 +15,7 @@
 #### php设计模式
 
 * 创建型
-  * 工厂方法
+  * [工厂方法](./php/design-patterns/creational-patterns/FactoryMethod.md)
   * 抽象工厂
   * 生成器
   * 原型
