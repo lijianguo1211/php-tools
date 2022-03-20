@@ -16,9 +16,9 @@
 
 * 创建型
   * [工厂方法](./php/design-patterns/creational-patterns/FactoryMethod.md)
-  * 抽象工厂
-  * 生成器
-  * 原型
+  * [抽象工厂](./php/design-patterns/creational-patterns/abstract-factory.md)
+  * [生成器](./php/design-patterns/creational-patterns/builder.md)
+  * [原型](./php/design-patterns/creational-patterns/prototype.md)
   * [单例](./php/design-patterns/creational-patterns/singleton.md)
 
 * 结构型
