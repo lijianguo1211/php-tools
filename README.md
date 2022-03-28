@@ -65,5 +65,6 @@
 |排序算法|
 |:----:|
 |[冒泡排序](./data-structure-and-algorithm/algorithm/sort/bubble-sort.md)|
+|[选择排序](./data-structure-and-algorithm/algorithm/sort/select-sort.md)|
 
 ### 网络知识
