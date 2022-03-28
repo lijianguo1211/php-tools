@@ -28,7 +28,7 @@
   * 装饰
   * 外观
   * 享元
-  * 代理
+  * [代理](./php/design-patterns/structural-patterns/proxy.md)
   
 * 行为型
   * 责任链
@@ -61,5 +61,9 @@
 #### 算法
 
 ##### 排序算法
+
+|排序算法|
+|:----:|
+|[冒泡排序](./data-structure-and-algorithm/algorithm/sort/bubble-sort.md)|
 
 ### 网络知识
