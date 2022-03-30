@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    const quotes = [
+        'When you have eliminated the impossible, whatever remains, however img',
+        'There is nothing more deceptive than an obvious fact.',
+        'I ought to know by this time that a fact appears to be opposed to',
+        'I never make exceptions. An exceptions disproves the rule.',
+        'What one man can invent another can discover.',
+        'Nothing clears up a case so much as stating it to anther person.',
+        'Education never ends, Watson. It is a series of lessons, with the'
+    ];
+
+    let words = [];
+
+    let wordIndex = 0;
+
+    let startTime = Date.now();
+
+    const quoteElement = document.getElementById('quote');
+
+    const messageElement = document.getElementById('message');
+
+    const typeValueElement = document.getElementById('type-value');
+
+    document.getElementById('start').addEventListener('click', () => {
+        const quoteIndex = Math.floor(Math.random() * quotes.length);
+
+        const quote = quotes[quoteIndex];
+
+        words = quote.split(' ');
+
+        wordIndex = 0;
+
+        const spanWords = words.map(function (word) {
+            return `<span>${word}</span>`;
+        })
+
+        quoteElement.innerHTML =spanWords.join('');
+
+
+    })
+</script>
+</html>
