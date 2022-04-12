@@ -1,0 +1,169 @@
+<?php
+/**
+ * @Notes:
+ *
+ * @File Name: timer.php
+ * @Date: 2022/4/12
+ * @Created By: Jay.Li
+ */
+//declare(ticks = 1);
+//pcntl_async_signals(true);
+//$interval = 1;
+//pcntl_signal(SIGALRM, function ($signal) use ($interval) {
+//    echo "this signal id = $signal \n";
+//    pcntl_alarm($interval);
+//}, false);
+//
+//$pid = pcntl_fork();
+//
+//if ($pid === 0) {
+//    pcntl_alarm($interval);
+//    echo 'Sleep (will be interrupted) started' . PHP_EOL;
+//    sleep(1000);
+//    echo 'Sleep ended soon due to interrupt' . PHP_EOL;
+//    $i = 0;
+//    while ($i < 10) {
+//        $i++;
+//        sleep(10);
+//    }
+//
+//    exit();
+//}
+//
+//while (true) {
+//    pcntl_signal_dispatch();
+//    pcntl_wait($status);
+//    pcntl_signal_dispatch();
+//    sleep(1);
+//}
+
+
+
+$fun1 = function () {
+//    declare(ticks = 1);
+
+    pcntl_signal(SIGALRM, function ($signal) {
+           echo "pcntl signal sigalrm ".time()."\n";
+
+           pcntl_alarm(5);
+    }, false);
+
+    pcntl_alarm(4);
+
+    while (1) {
+        pcntl_signal_dispatch();
+       sleep(1);
+        pcntl_signal_dispatch();
+    }
+};
+
+//$fun1();
+
+$fun2 = function () {
+
+
+    pcntl_signal(SIGALRM, function ($signal) {
+        echo "pcntl signal sigalrm ".time()."\n";
+
+        pcntl_alarm(5);
+    }, false);
+
+    pcntl_alarm(4);
+
+    while (1) {
+        pcntl_signal_dispatch();
+    }
+};
+
+//$fun2();
+
+
+$fun3 = function () {
+    pcntl_signal(SIGALRM, function ($signal) {
+        echo "pcntl signal sigalrm ".time()."\n";
+    }, false);
+
+    echo "pcntl_alarm start ".time()."\n";
+    pcntl_alarm(4);
+    pcntl_signal_dispatch();
+    echo "start " . time() . PHP_EOL;
+    sleep(1000);
+
+    echo "end " . time() . PHP_EOL;
+};
+
+//$fun3();
+
+$fun4 = function () {
+    declare(ticks = 1);
+    pcntl_signal(SIGALRM, function ($signal) {
+        echo "pcntl signal sigalrm ".time()."\n";
+    }, false);
+
+    echo "pcntl_alarm start ".time()."\n";
+    pcntl_alarm(10);
+    echo "start " . time() . PHP_EOL;
+//    sleep(1000);
+//
+//    echo "end " . time() . PHP_EOL;
+
+//    while (true) {
+//        sleep(10);
+//        echo "end " . time() . PHP_EOL;
+//    }
+
+};
+
+//$fun4();
+
+
+$fun5 = function () {
+    declare(ticks=1);
+
+// 每次 tick 事件都会调用该函数
+    function tick_handler()
+    {
+        echo "tick_handler() called\n";
+    }
+
+    register_tick_function('tick_handler'); // 引起 tick 事件
+
+    $a = 1; // 引起 tick 事件
+
+    if ($a > 0) {
+        $a += 2; // 引起 tick 事件
+        print($a); // 引起 tick 事件
+    }
+};
+
+//$fun5();
+
+$fun6 = function () {
+    pcntl_signal(SIGALRM, function ($signal) {
+        echo "pcntl signal sigalrm ".time()."\n";
+
+        pcntl_alarm(5);
+    }, false);
+
+    pcntl_alarm(3);
+
+    while (true) {
+        pcntl_signal_dispatch();
+    }
+};
+
+//$fun6();
+
+$fun7 = function () {
+    pcntl_async_signals(true);
+    pcntl_signal(SIGALRM, function ($signal) {
+        echo "pcntl signal sigalrm ".time()."\n";
+    }, false);
+
+    echo "start " . time() . "\n";
+    pcntl_alarm(3);
+    echo "走\n";
+
+    sleep(100);
+};
+$fun7();
