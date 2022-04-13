@@ -72,5 +72,6 @@
 |[冒泡排序](./data-structure-and-algorithm/algorithm/sort/bubble-sort.md)|
 |[选择排序](./data-structure-and-algorithm/algorithm/sort/select-sort.md)|
 |[插入排序](./data-structure-and-algorithm/algorithm/sort/insert-sort.md)|
+|[二分排序](./data-structure-and-algorithm/algorithm/sort/binary-sort.md)|
 
 ### 网络知识
