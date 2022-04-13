@@ -11,6 +11,11 @@
 |[多进程编程四](./php/process/php-process4.md)|
 |[多进程编程五](./php/process/php-process5.md)|
 |[多进程编程六](./php/process/php-process6.md)|
+|[多进程编程七](./php/process/php-process(七).md)|
+|[多进程编程八](./php/process/php-process(八).md)|
+|[多进程编程九](./php/process/php-process(九).md)|
+|[多进程编程十](./php/process/php-process(十).md)|
+|[多进程编程十一](./php/process/php-process11.md)|
 
 #### php设计模式
 
@@ -66,5 +71,6 @@
 |:----:|
 |[冒泡排序](./data-structure-and-algorithm/algorithm/sort/bubble-sort.md)|
 |[选择排序](./data-structure-and-algorithm/algorithm/sort/select-sort.md)|
+|[插入排序](./data-structure-and-algorithm/algorithm/sort/insert-sort.md)|
 
 ### 网络知识
