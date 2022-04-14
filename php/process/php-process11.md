@@ -58,3 +58,91 @@ pcntl_alarm(3);
 
 sleep(100);
 ```
+
+* 设置一个永久的定时器，主进程不退出，在信号中不断的发送信号
+
+```php
+pcntl_async_signals(true);
+pcntl_signal(SIGALRM, function ($signal) {
+    echo "pcntl signal sigalrm ".time()."\n";
+    pcntl_alarm(2);
+}, false);
+
+echo "start " . time() . "\n";
+
+echo pcntl_alarm(1) . "\n";
+
+while (true) {
+    sleep(100);
+}
+```
+
+* 在短时间内，如果连续发送时钟信号，后面一个会覆盖前面的，如果设置小于等于0的参数，即当前设置的也会覆盖之前的时钟信号，同时当前的时钟不生效。
+
+```php
+    pcntl_async_signals(true);
+    pcntl_signal(SIGALRM, function ($signal) {
+        echo "pcntl signal sigalrm ".time()."\n";
+        pcntl_alarm(2);
+    }, false);
+
+    echo "start " . time() . "\n";
+
+    echo pcntl_alarm(3) . "\n";
+    echo pcntl_alarm(2) . "\n";
+    echo pcntl_alarm(1) . "\n";
+    echo pcntl_alarm(0) . "\n";
+    echo pcntl_alarm(-1) . "\n";
+
+    while (true) {
+        sleep(100);
+    }
+```
+
+* 使用Event扩展时使用定时器,一次性的定时器
+
+```php
+$base = new EventBase();
+
+$event = Event::timer($base, function ($arg) {
+    echo "timer :" .time() . PHP_EOL;
+}, ['num' => 2]);
+$event->addTimer(1);
+
+$base->loop();
+```
+
+* 通过`new Event`实现一次性定时器
+
+```php
+$base = new EventBase();
+
+$event = new Event($base, -1, Event::TIMEOUT, function ($fd, $what, $e) {
+    echo "timer 2s end time: " . time() . PHP_EOL;
+
+    $e->delTimer();
+});
+
+echo "timer start time：" . time() . PHP_EOL;
+$event->data = $event;
+$event->add(2);
+
+$base->loop();
+```
+
+* 实现一个永久的定时器
+
+```php
+$base = new EventBase();
+
+$event = new Event($base, -1, Event::TIMEOUT|Event::PERSIST, function ($fd, $what) {
+    echo "timer 2s end time: " . time() . PHP_EOL;
+});
+
+echo "timer start time：" . time() . PHP_EOL;
+$event->add(2);
+
+$base->loop();
+```
+
+

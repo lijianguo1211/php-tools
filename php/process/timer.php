@@ -166,4 +166,69 @@ $fun7 = function () {
 
     sleep(100);
 };
-$fun7();
+//$fun7();
+
+$fun8 = function () {
+    pcntl_async_signals(true);
+    pcntl_signal(SIGALRM, function ($signal) {
+        echo "pcntl signal sigalrm ".time()."\n";
+        pcntl_alarm(2);
+    }, false);
+
+    echo "start " . time() . "\n";
+
+    echo pcntl_alarm(1) . "\n";
+
+    while (true) {
+        sleep(100);
+    }
+
+};
+//$fun8();
+
+$fun9 = function () {
+
+    $base = new EventBase();
+
+    $event = Event::timer($base, function ($arg) {
+        echo "timer :" .time() . PHP_EOL;
+    }, ['num' => 2]);
+    $event->addTimer(1);
+
+    $base->loop();
+};
+
+//$fun9();
+
+$fun10 = function () {
+
+    $base = new EventBase();
+
+    $event = new Event($base, -1, Event::TIMEOUT, function ($fd, $what, $e) {
+        echo "timer 2s end time: " . time() . PHP_EOL;
+
+        $e->delTimer();
+    });
+
+    echo "timer start time：" . time() . PHP_EOL;
+    $event->data = $event;
+    $event->add(2);
+
+    $base->loop();
+};
+//$fun10();
+
+$fun11 = function () {
+
+    $base = new EventBase();
+
+    $event = new Event($base, -1, Event::TIMEOUT|Event::PERSIST, function ($fd, $what) {
+        echo "timer 2s end time: " . time() . PHP_EOL;
+    });
+
+    echo "timer start time：" . time() . PHP_EOL;
+    $event->add(2);
+
+    $base->loop();
+};
+$fun11();
