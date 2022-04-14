@@ -154,12 +154,97 @@ function binarySort2(array &$arr, int $left, int $right)
 
 //$arrSort = binarySort($arr);
 //$arrSort = binary($arr);
-binarySort2($arr, 0, count($arr) - 1);
+//binarySort2($arr, 0, count($arr) - 1);
+//$arrSort = $arr;
 
-$arrSort = $arr;
+function binarySort3(array $arr)
+{
+    for ($i = 1; $i < count($arr); $i++) {
+        $tmp = $arr[$i];
+
+        $left = 0;
+        $right = $i - 1;
+        $mid = -1;
+        //30, 2, 4, 5,90, 1, 28
+//        echo sprintf("%d 次循环， left = %d, right = %d tmp = %d mid = %d\n", $i, $left, $right, $tmp, ($left + $right) >> 1);
+        while ($left <= $right) {
+            $mid = ($left + $right) >> 1;
+//            echo sprintf("%d 次循环， mid = %d\t", $i, $mid);
+            if ($arr[$mid] > $tmp) {
+                $right = $mid - 1;
+            } else {
+                $left = $mid + 1;
+            }
+        }
+//        echo "\n";
+
+        echo sprintf("%d 次循环， j = %d, left = %d\n", $i, $i - 1, $left);
+        for ($j = $i - 1; $j >= $left; $j--) {
+            echo sprintf("j + 1 = %d , j = %d \t", $arr[$j + 1], $arr[$j]);
+            $arr[$j + 1] = $arr[$j];
+
+            echo implode('-', $arr) . "\t";
+        }
+
+        echo "\n";
+        $arr[$left] = $tmp;
+    }
+
+    return $arr;
+}
+$arr = [30, 2, 4, 5,90, 1, 28];
+$arr = [1, 3, 5, 29, 36, 28];
+$arrSort = binarySort3($arr);
 
 array_map(function ($val) {
     echo $val . "\t";
 }, $arrSort);
 
+/**
+ * 30, 2, 4, 5,90, 1, 28
+ * tmp = arr[1] = 2
+ * left = 0, right = 1 - 1 = 0
+ *if left <= right  mid = 0 arr[0] = 30 > tmp = 2 right =
+ */
+
+class TestCall
+{
+    /**
+     * @var callable
+     */
+    protected $callback;
+
+    protected string $params;
+
+    public function __construct($what, callable $cb)
+    {
+        $this->callback = $cb;
+
+        $this->params = $what;
+    }
+
+    public function add()
+    {
+        $method = $this->callback;
+
+        $method($this->params);
+    }
+}
+
+$test = function () {
+    $obj = new TestCall('第一层', function ($what) {
+
+        echo $what . "\n";
+
+        $obj = new TestCall("第二层", function ($what) {
+            echo $what . "\n";
+        });
+
+        $obj->add();
+    });
+
+    $obj->add();
+};
+
+//$test();
 

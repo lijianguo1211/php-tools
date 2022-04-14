@@ -113,3 +113,69 @@ function binarySort2(array &$arr, int $left, int $right)
 }
 
 ```
+
+* 二分排序的非递归实现
+
+> 还是需要利用插入排序的思想，外层的 `for`循环控制比较次数，从下标为1的元素开始循环。
+> 下标为$i的数据()当做每次比较的基准数
+> 每次比较都是从0开始，到$i-1结束[这个里面的数据是已经排序好的数据]，后面待排序的数字在这个已经排序好的数据中，二分查找自己应该插入的位置
+
+```php
+//[1, 3, 5, 7, 9] 19
+// L     M     R // mid = 2 arr[2] = 5
+//5 > 19 ? false 说明待插入元素不在左半边，这个时候，需要把L的位置移动到M+1的位置
+//[1, 3, 5, 7, 9] 19
+//       L  M  R // mid = 3 arr[3] = 7
+//7 > 19 ? false 说明待插入的元素在右半边，这个时候，L = M + 1 = 4
+//[1, 3, 5, 7, 9] 19
+//             L //判断 L <= R,继续比较，
+//这个时候，M = L, 9 > 19 ? false, L = M + 1 
+// L > M 说明找到需要插入的位置就在L了
+//下面这个交换也是有意思的。上面的L是代表最终需要插入的位置，但是如果直接插入进去，原来的数怎么半？
+//j = 5, l = 5
+//每次交换位置的数据都是把待插入之后的数据先向后移动交换
+//但是不能超出待插入位置
+for ($j = $i - 1; $j >= $left; $j--) {
+    $arr[$j + 1] = $arr[$j];
+}
+```
+
+* 具体的PHP实现
+
+```php
+function binarySort3(array $arr)
+{
+    for ($i = 1; $i < count($arr); $i++) {
+        $tmp = $arr[$i];
+
+        $left = 0;
+        $right = $i - 1;
+        $mid = -1;
+        //30, 2, 4, 5,90, 1, 28
+//        echo sprintf("%d 次循环， left = %d, right = %d tmp = %d mid = %d\n", $i, $left, $right, $tmp, ($left + $right) >> 1);
+        while ($left <= $right) {
+            $mid = ($left + $right) >> 1;
+//            echo sprintf("%d 次循环， mid = %d\t", $i, $mid);
+            if ($arr[$mid] > $tmp) {
+                $right = $mid - 1;
+            } else {
+                $left = $mid + 1;
+            }
+        }
+//        echo "\n";
+
+        echo sprintf("%d 次循环， j = %d, left = %d\n", $i, $i - 1, $left);
+        for ($j = $i - 1; $j >= $left; $j--) {
+            echo sprintf("j + 1 = %d , j = %d \t", $arr[$j + 1], $arr[$j]);
+            $arr[$j + 1] = $arr[$j];
+
+            echo implode('-', $arr) . "\t";
+        }
+
+        echo "\n";
+        $arr[$left] = $tmp;
+    }
+
+    return $arr;
+}
+```
