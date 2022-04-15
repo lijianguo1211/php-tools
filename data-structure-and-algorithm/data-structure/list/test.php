@@ -21,6 +21,10 @@ $stdClass->id = 1;
 $stdClass->name = 'test';
 $stdClass->time = time();
 $linkedList->add($stdClass);
+$linkedList->add(function () {
+    return 'callback~';
+});
+$linkedList->addFirst('A|1|一|one');
 
 echo "linked list size = (" . $linkedList->size() . ")\n";
 
@@ -36,3 +40,11 @@ while (true) {
 
     $node = $node->next;
 }
+
+//var_dump($linkedList->removeFirst());
+//var_dump($linkedList->removeLast());
+//var_dump($linkedList->removeFirst());
+//var_dump($linkedList->removeFirst());
+//var_dump($linkedList->removeFirst());
+$cb = $linkedList->removeIndex(5);
+var_dump($cb());

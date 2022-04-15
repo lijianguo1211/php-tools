@@ -22,11 +22,11 @@ class Node
     public ?Node $prev = null;
 
     /**
-     * @var
+     * @var mixed
      */
-    protected $item;
+    protected mixed $item;
 
-    public function __construct(?Node $prev, $element, ?Node $next)
+    public function __construct(?Node $prev, mixed $element, ?Node $next)
     {
         $this->item = $element;
 
@@ -35,8 +35,33 @@ class Node
         $this->next = $next;
     }
 
-    public function getItem()
+    /**
+     * @Notes:
+     *
+     * @User: Jay.Li
+     * @Methods: getItem
+     * @Date: 2022/4/15
+     * @return mixed
+     */
+    public function getItem(): mixed
     {
         return $this->item;
+    }
+
+    /**
+     * @Notes:
+     *
+     * @User: Jay.Li
+     * @Methods: setItem
+     * @Date: 2022/4/15
+     * @param $element
+     *
+     * @return $this
+     */
+    public function setItem($element):self
+    {
+        $this->item = $element;
+
+        return $this;
     }
 }
