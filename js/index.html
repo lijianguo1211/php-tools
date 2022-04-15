@@ -3,11 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        #app {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            cursor: pointer;
+        }
+        #app:hover {
+            background-color: rebeccapurple;
+        }
+    </style>
 </head>
 <body>
+<div id="app">
 
+</div>
 </body>
 <script>
+    document.getElementById('app').addEventListener('click', function () {
+        const img = document.createElement('img')
+
+        img.src = "https://www.baidu.com/"
+    })
+
     const quotes = [
         'When you have eliminated the impossible, whatever remains, however img',
         'There is nothing more deceptive than an obvious fact.',
