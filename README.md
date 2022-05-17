@@ -80,3 +80,16 @@
 |[希尔排序](./data-structure-and-algorithm/algorithm/sort/shell-sort.md)|
 
 ### 网络知识
+
+
+### Java知识
+
+##### 注解
+##### maven
+
+1. [Maven的相关记录](./java/maven/maven.md)
+
+##### java-mysql
+
+1. [java 连接 mysql](./java/mysql/conn.md) 
+1. [java 操作 mysql](./java/mysql/select.md) 
