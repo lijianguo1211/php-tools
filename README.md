@@ -92,4 +92,5 @@
 ##### java-mysql
 
 1. [java 连接 mysql](./java/mysql/conn.md) 
-1. [java 操作 mysql](./java/mysql/select.md) 
+2. [java 操作 mysql](./java/mysql/select.md) 
+3. [java 使用apache commons dbUtils](./java/mysql/apache-commons-db-utils.md) 
