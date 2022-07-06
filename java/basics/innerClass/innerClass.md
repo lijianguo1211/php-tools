@@ -180,3 +180,101 @@ class Test {
 5. 无法编写构造方法，但是可以使用构造代码块
 6. 不能出现静态成员
 7. 匿名内部类可以实现接口或者继承父类，二者不可同时出现
+
+*******
+
+* 接口中的内部类
+
+```java
+public interface PersonInterface {
+
+    int TEMP = 10;
+
+    void fun1();
+
+    public default void fun2() {
+        System.out.println("接口中默认方法");
+    }
+
+    public static void fun3() {
+        System.out.println("接口中静态方法");
+    }
+    public class InnerClass1 {
+        public void fun4() {
+            System.out.println("接口中定义的普通成员内部类~");
+        }
+    }
+
+    public abstract class InnerClass2 {
+        public abstract void fun5();
+
+        public void fun6() {
+            System.out.println("接口中定义的抽象成员内部类~");
+        }
+    }
+}
+```
+
+1. 类实现这个接口
+
+```java
+public class Person implements PersonInterface{
+    @Override
+    public void fun1() {
+        System.out.println("实现类~");
+    }
+
+    public InnerClass1 getInnerClass1() {
+        return new InnerClass1();
+    }
+
+    public class InnerClass3 extends InnerClass2 {
+
+        @Override
+        public void fun5() {
+            System.out.println("重写接口中内部抽象类的抽象方法~");
+        }
+    }
+}
+```
+
+2. 调用：
+
+```java
+import org.jay.innerClass.Person;
+import org.jay.innerClass.PersonInterface;
+import org.jay.innerClass.PersonInterface.InnerClass1;
+
+class Test {
+    public static void main(String[] args) {
+        // 接口名.类名实例化
+        PersonInterface.InnerClass1 innerClass1 = new PersonInterface.InnerClass1();
+
+        innerClass1.fun4();
+
+        // 通过方法
+        Person person = new Person();
+        person.getInnerClass1().fun4();
+
+        // import 导入接口中的内部类，直接实例化
+        InnerClass1 innerClass11 = new InnerClass1();
+        innerClass11.fun4();
+
+        // 通过匿名内部类实例化接口中的抽象内部类
+        PersonInterface.InnerClass2 innerClass2 = new PersonInterface.InnerClass2() {
+
+            @Override
+            public void fun5() {
+                System.out.println("重写接口中内部抽象类的抽象方法~");
+            }
+        };
+        innerClass2.fun5();
+        innerClass2.fun6();
+
+        // 通过实现类调用
+        Person.InnerClass3 innerClass3 = new Person().new InnerClass3();
+        innerClass3.fun5();
+        innerClass3.fun6();
+    }
+}
+```
